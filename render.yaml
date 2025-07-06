@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: umkm-pemenang
+    env: docker
+    plan: free
+    repo: https://github.com/Laluhabibb/umkm-pemenang
+    region: oregon
+    branch: main
+    dockerfilePath: ./Dockerfile
