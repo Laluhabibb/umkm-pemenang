@@ -20,7 +20,7 @@ if ($cek > 0) {
             $_SESSION['username'] = $username;
             $_SESSION['id_user'] = $data['id_user']; // Menyimpan id_user di session
             $_SESSION['jenis'] = "admin";
-            header("Location: /umkmpemenang/.admin/index.php?pesan=berhasil"); // Redirect ke dashboard admin
+            header("Location: https://umkm-pemenang.onrender.com/umkmpemenang/.admin/index.php?pesan=berhasil"); // Redirect ke dashboard admin
             exit;
         } else {
             // Password salah
@@ -36,7 +36,7 @@ if ($cek > 0) {
             $_SESSION['username'] = $username;
             $_SESSION['id_user'] = $data['id_user']; // Menyimpan id_user di session
             $_SESSION['jenis'] = "member";
-            header("Location: /umkmpemenang/.member/index.php?pesan=berhasil"); // Redirect ke dashboard member
+            header("Location: https://umkm-pemenang.onrender.com/umkmpemenang/.member/index.php?pesan=berhasil"); // Redirect ke dashboard member
             exit;
         } else {
             // Member belum diaktifkan oleh admin
