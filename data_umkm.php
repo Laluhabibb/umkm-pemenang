@@ -34,37 +34,52 @@
         </div>
 
         <!-- Konten UMKM -->
-        <div class="row" id="umkmContainer">
-            <div class="col-lg-12">
-                <div class="row" id="umkmList">
-                    <?php
-                    $data = file_get_contents('https://umkm-pemenang.onrender.com/ambildata.php');
-                    if (json_decode($data, true)) {
-                        $obj = json_decode($data);
-                        foreach ($obj->results as $item) {
-                    ?>
-                            <div class="col-lg-4 col-md-6 mb-4 umkm-card fade-in" data-nama="<?php echo strtolower($item->nama_umkm); ?>" data-kategori="<?php echo strtolower($item->nama_kategori); ?>">
-                                <div class="card border-0 shadow-sm rounded-3 h-100">
-                                    <img src="images/<?php echo htmlspecialchars($item->foto); ?>" class="card-img-top rounded-top-3" alt="Foto UMKM" style="height: 200px; object-fit: cover;">
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title fw-bold text-dark"><?php echo htmlspecialchars($item->nama_umkm); ?></h5>
-                                        <p class="card-text text-muted">Pemilik: <?php echo htmlspecialchars($item->nama_pemilik); ?></p>
-                                        <p class="card-text text-muted">Alamat: <?php echo htmlspecialchars($item->alamat); ?></p>
-                                        <p class="card-text text-muted">Jenis: <?php echo htmlspecialchars($item->nama_kategori); ?></p>
-                                        <p class="card-text text-muted flex-grow-1"><?php echo htmlspecialchars($item->deskripsi); ?></p>
-                                        <a href="detail.php?id=<?php echo $item->id_umkm; ?>" class="btn btn-primary rounded-pill mt-auto">Lihat Detail</a>
-                                    </div>
-                                </div>
+<div class="row" id="umkmContainer">
+    <div class="col-lg-12">
+        <div class="row" id="umkmList">
+            <?php
+            $query = mysqli_query($koneksi, "
+                SELECT 
+                    tb_umkm.*, 
+                    tb_kategori_umkm.nama_kategori 
+                FROM 
+                    tb_umkm 
+                LEFT JOIN 
+                    tb_kategori_umkm 
+                    ON tb_umkm.id_kategori = tb_kategori_umkm.id_kategori
+            ");
+
+            if ($query && mysqli_num_rows($query) > 0) {
+                while ($item = mysqli_fetch_assoc($query)) {
+            ?>
+                    <div class="col-lg-4 col-md-6 mb-4 umkm-card fade-in" 
+                         data-nama="<?php echo strtolower($item['nama_umkm']); ?>" 
+                         data-kategori="<?php echo strtolower($item['nama_kategori']); ?>">
+                        <div class="card border-0 shadow-sm rounded-3 h-100">
+                            <img src="images/<?php echo htmlspecialchars($item['foto']); ?>" 
+                                 class="card-img-top rounded-top-3" 
+                                 alt="Foto UMKM" 
+                                 style="height: 200px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold text-dark"><?php echo htmlspecialchars($item['nama_umkm']); ?></h5>
+                                <p class="card-text text-muted">Pemilik: <?php echo htmlspecialchars($item['nama_pemilik']); ?></p>
+                                <p class="card-text text-muted">Alamat: <?php echo htmlspecialchars($item['alamat']); ?></p>
+                                <p class="card-text text-muted">Jenis: <?php echo htmlspecialchars($item['nama_kategori']); ?></p>
+                                <p class="card-text text-muted flex-grow-1"><?php echo htmlspecialchars($item['deskripsi']); ?></p>
+                                <a href="detail.php?id=<?php echo $item['id_umkm']; ?>" class="btn btn-primary rounded-pill mt-auto">Lihat Detail</a>
                             </div>
-                    <?php
-                        }
-                    } else {
-                        echo "<div class='col-12'><div class='alert alert-warning text-center rounded-pill'>Data tidak tersedia.</div></div>";
-                    }
-                    ?>
-                </div>
-            </div>
+                        </div>
+                    </div>
+            <?php
+                }
+            } else {
+                echo "<div class='col-12'><div class='alert alert-warning text-center rounded-pill'>Data tidak tersedia.</div></div>";
+            }
+            ?>
         </div>
+    </div>
+</div>
+
     </div>
 </section>
 <!-- End About Info Area -->

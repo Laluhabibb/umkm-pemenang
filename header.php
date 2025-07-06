@@ -235,7 +235,9 @@
             .navbar-brand .brand-text .main-title {
                 font-size: 0.9rem;
             }
-            
+            .main-title {
+                display: none;
+            }
             .navbar-brand .brand-text .sub-title {
                 display: none;
             }

@@ -1,11 +1,7 @@
 <?php
-header('Content-Type: application/json'); // Menentukan bahwa output adalah JSON
+header('Content-Type: application/json');
 include "koneksi.php";
 
-// Pastikan $id terdefinisi dan aman (jika ingin filter berdasarkan ID, tapi di sini tidak digunakan)
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-// Query dengan JOIN ke tb_kategori_umkm
 $query = "
     SELECT 
         tb_umkm.*, 
@@ -18,8 +14,8 @@ $query = "
 ";
 
 $result = mysqli_query($koneksi, $query) or die(json_encode(['error' => mysqli_error($koneksi)]));
-
 $posts = [];
+
 if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $posts[] = $row;
@@ -27,3 +23,4 @@ if ($result && mysqli_num_rows($result) > 0) {
 }
 
 echo json_encode(['results' => $posts]);
+exit;
