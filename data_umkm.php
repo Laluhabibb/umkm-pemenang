@@ -38,7 +38,7 @@
             <div class="col-lg-12">
                 <div class="row" id="umkmList">
                     <?php
-                    $data = file_get_contents('http://localhost/umkmpemenang/ambildata.php');
+                    $data = file_get_contents('https://umkm-pemenang.onrender.com/umkmpemenang/ambildata.php');
                     if (json_decode($data, true)) {
                         $obj = json_decode($data);
                         foreach ($obj->results as $item) {
